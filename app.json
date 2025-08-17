@@ -32,17 +32,17 @@
       "value": "false"
     },
     "AUTO_VOICE": {
-      "description": "Make it true if want automatic voice reply .",
+      "description": "Make it true if want automatic voice reply.",
+      "required": false,
+      "value": "false"
+    },
+    "AUTO_STICKER": {
+      "description": "Make it true if you want automatic sticker conversion.",
       "required": false,
       "value": "false"
     },
     "AUTO_REPLY": {
       "description": "Make it true if you want automatic reply.",
-      "required": false,
-      "value": "false"
-    },
-    "AUTO_STICKER": {
-      "description": "Make it true if you want automatic sticker.",
       "required": false,
       "value": "false"
     },
@@ -170,7 +170,10 @@
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
     }
   ],
   "stack": "heroku-24"
-    }
+}
