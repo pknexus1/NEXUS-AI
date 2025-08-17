@@ -1,8 +1,8 @@
 {
-  "name": "PK-XMD",
+  "name": "NEXUS-AI",
   "description": "Javascript WhatsApp bot made by novaxmd",
   "logo": "https://files.catbox.moe/fgiecg.jpg",
-  "keywords": ["PK-XMD"],
+  "keywords": ["NEXUS-AI"],
   "success_url": "/",
   "stack": "container",
   "env": {
@@ -64,7 +64,7 @@
     "AUTO_STATUS_MSG": {
       "description": "Type custom message on status reply",
       "required": true,
-      "value": "*SEEN YOUR STATUS BY PK-XMD 💜🤎🖤🤍*"
+      "value": "*SEEN YOUR STATUS BY NEXUS-AI 💜🤎🖤🤍*"
     },
     "OWNER_NAME": {
       "description": "Type Bot Owner Name.",
@@ -79,7 +79,7 @@
     "BOT_NAME": {
       "description": "Type here the bot name.",
       "required": false,
-      "value": "PK-XMD"
+      "value": "NEXUS-AI"
     },
     "ANTI_LINK": {
       "description": "Make it true if you want bot auto remove group link.",
