@@ -1,71 +1,200 @@
 const {
   default: makeWASocket,
-    useMultiFileAuthState,
-    DisconnectReason,
-    jidNormalizedUser,
-    isJidBroadcast,
-    getContentType,
-    proto,
-    generateWAMessageContent,
-    generateWAMessage,
-    AnyMessageContent,
-    prepareWAMessageMedia,
-    areJidsSameUser,
-    downloadContentFromMessage,
-    MessageRetryMap,
-    generateForwardMessageContent,
-    generateWAMessageFromContent,
-    generateMessageID, makeInMemoryStore,
-    jidDecode,
-    fetchLatestBaileysVersion,
-    Browsers
-  } = require('@whiskeysockets/baileys')
-  
-  
-  const l = console.log
-  const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('./lib/functions')
-  const { AntiDelDB, initializeAntiDeleteSettings, setAnti, getAnti, getAllAntiDeleteSettings, saveContact, loadMessage, getName, getChatSummary, saveGroupMetadata, getGroupMetadata, saveMessageCount, getInactiveGroupMembers, getGroupMembersMessageCount, saveMessage } = require('./data')
-  const fs = require('fs')
-  const ff = require('fluent-ffmpeg')
-  const P = require('pino')
-  const config = require('./config')
-  const GroupEvents = require('./lib/groupevents');
-  const qrcode = require('qrcode-terminal')
-  const StickersTypes = require('wa-sticker-formatter')
-  const util = require('util')
-  const { sms, downloadMediaMessage, AntiDelete } = require('./lib')
-  const FileType = require('file-type');
-  const axios = require('axios')
-  const { File } = require('megajs')
-  const { fromBuffer } = require('file-type')
-  const bodyparser = require('body-parser')
-  const os = require('os')
-  const Crypto = require('crypto')
-  const path = require('path')
-  const prefix = config.PREFIX
-  
-  const ownerNumber = ['254759626063']
-  
-  const tempDir = path.join(os.tmpdir(), 'cache-temp')
-  if (!fs.existsSync(tempDir)) {
-      fs.mkdirSync(tempDir)
+  useMultiFileAuthState,
+  DisconnectReason,
+  jidNormalizedUser,
+  isJidBroadcast,
+  getContentType,
+  proto,
+  generateWAMessageContent,
+  generateWAMessage,
+  AnyMessageContent,
+  prepareWAMessageMedia,
+  areJidsSameUser,
+  downloadContentFromMessage,
+  MessageRetryMap,
+  generateForwardMessageContent,
+  generateWAMessageFromContent,
+  generateMessageID, makeInMemoryStore,
+  jidDecode,
+  fetchLatestBaileysVersion,
+  Browsers
+} = require('@whiskeysockets/baileys')
+
+const l = console.log
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('./lib/functions')
+const { AntiDelDB, initializeAntiDeleteSettings, setAnti, getAnti, getAllAntiDeleteSettings, saveContact, loadMessage, getName, getChatSummary, saveGroupMetadata, getGroupMetadata, saveMessageCount, getInactiveGroupMembers, getGroupMembersMessageCount, saveMessage } = require('./data')
+const fs = require('fs')
+const ff = require('fluent-ffmpeg')
+const P = require('pino')
+const config = require('./config')
+const GroupEvents = require('./lib/groupevents');
+const qrcode = require('qrcode-terminal')
+const StickersTypes = require('wa-sticker-formatter')
+const util = require('util')
+const { sms, downloadMediaMessage, AntiDelete } = require('./lib')
+const FileType = require('file-type');
+const axios = require('axios')
+const { File } = require('megajs')
+const { fromBuffer } = require('file-type')
+const bodyparser = require('body-parser')
+const os = require('os')
+const Crypto = require('crypto')
+const path = require('path')
+const prefix = config.PREFIX
+
+const ownerNumber = ['254799056874']
+
+// ================== AUTO BIO CONFIG ==================
+const bioQuotes = [
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `⏰ ${timeString} | NEXUS-AI 🤖 | Always Active Success is a consequence and must must not be a goal | Nairobi Time`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `🔄 ${timeString} | NEXUS-AI 🤖 | Processing Requests | KE Time`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `⚡ ${timeString} | NEXUS-AI 🤖 | Lightning Fast Trust the process | EAT`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `🌐 ${timeString} | NEXUS-AI 🤖 | Connected Worldwide speed is my middle name| GMT+3`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `🤖 ${timeString} | NEXUS-AI | Serving 24/7 stay positive keep moving forward| Kenya Time`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `💡 ${timeString} | NEXUS-AI | Smart Assistant embrace the life you have and stop wishing you could be someone| EAT`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `🔮 ${timeString} | NEXUS-AI | Future of AI a needle is not sharp at both ends| Nairobi`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `🚀 ${timeString} | NEXUS-AI | Next Gen Tech the only time you run out of chances is when you stop taking them| KE`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `💻 ${timeString} | NEXUS-AI | Coding the Future | EAT`;
+  },
+  () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+      timeZone: 'Africa/Nairobi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    return `📡 ${timeString} | NEXUS-AI | Always Online nature is pleased with simplicity.and nature is no dummy| Nairobi Time`;
   }
-  
-  const clearTempDir = () => {
-      fs.readdir(tempDir, (err, files) => {
-          if (err) throw err;
-          for (const file of files) {
-              fs.unlink(path.join(tempDir, file), err => {
-                  if (err) throw err;
-              });
-          }
-      });
+];
+
+let currentBioIndex = 0;
+
+const updateBio = async (conn) => {
+  try {
+    const newBio = bioQuotes[currentBioIndex]();
+    await conn.updateProfileStatus(newBio);
+    console.log(`Bio updated to: ${newBio}`);
+    
+    // Move to next quote or loop back to start
+    currentBioIndex = (currentBioIndex + 1) % bioQuotes.length;
+  } catch (error) {
+    console.error('Error updating bio:', error);
   }
-  
-  // Clear the temp directory every 5 minutes
-  setInterval(clearTempDir, 5 * 60 * 1000);
-  
-  //===================SESSION-AUTH============================
+};
+// ================== END AUTO BIO ==================
+
+const tempDir = path.join(os.tmpdir(), 'cache-temp')
+if (!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir)
+}
+
+const clearTempDir = () => {
+    fs.readdir(tempDir, (err, files) => {
+        if (err) throw err;
+        for (const file of files) {
+            fs.unlink(path.join(tempDir, file), err => {
+                if (err) throw err;
+            });
+        }
+    });
+}
+
+// Clear the temp directory every 5 minutes
+setInterval(clearTempDir, 5 * 60 * 1000);
+
+//===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/sessions/creds.json')) {
 if(!config.SESSION_ID) return console.log('Please add your session to SESSION_ID env !!')
 const sessdata = config.SESSION_ID.replace("nexus~", '');
@@ -80,9 +209,9 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 9090;
   
-  //=============================================
+//=============================================
   
-  async function connectToWA() {
+async function connectToWA() {
   console.log("Connecting to WhatsApp ⏳️...");
   const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/sessions/')
   var { version } = await fetchLatestBaileysVersion()
@@ -113,19 +242,48 @@ const port = process.env.PORT || 9090;
   console.log('Plugins installed successful ✅')
   console.log('Bot connected to whatsapp ✅')
   
-  let up = `╭─〔 *🤖 CRIMINAL-XMD BOT* 〕  
-├─▸ *Ultra Super Fast Powerfull 🔥*  
-│     *World Best BOT CRIMINAL-MD* 
-╰─➤ *Your Smart WhatsApp Bot is Ready To use ✅!*  
+  // Get current time for the connection message
+  const now = new Date();
+  const connectTime = now.toLocaleString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+  
+  // Updated connection message with newsletter context
+let up = `╭─〔 *🌐 NEXUS-AI CONNECTION ESTABLISHED* 〕
+├─ *🕒 Connection Time:* ${connectTime}
+├─ *⚡ Uptime:* ${runtime(process.uptime())}
+├─ *📊 Memory Usage:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB
+├─ *🔌 Version:* ${version[0]}.${version[1]}
+│
+├─ *📢 Official Channel:*
+├─ https://whatsapp.com/channel/0029Vad7YNyJuyA77CtIPX0x
+│
+├─ *🧩 Prefix:* [ ${prefix} ]
+├─ *🤖 Mode:* ${config.MODE}
+╰─➤ *🔮 Powered by Nexus-AI | © ${new Date().getFullYear()}*`;
 
-- *👑 Thank You for Choosing CRIMINAL-XMD!* 
+// Send connection message with more details
+conn.sendMessage(conn.user.id, { 
+  image: { url: `https://files.catbox.moe/mhzj1l.jpg` }, 
+  caption: up,
+  contextInfo: {
+    mentionedJid: [conn.user.id],
+    forwardingScore: 999,
+    isForwarded: true,
+    forwardedNewsletterMessageInfo: {
+      newsletterJid: "120363288304618280@newsletter",
+      newsletterName: "PK-XMD CHANNEL",
+      serverMessageId: -1
+    }
+  }
+});
 
-╭──〔 😅 *Information* 〕  
-├─ 🪀 *Prefix:* = ${prefix}
-├─ 🔧 *Join Channel:*  
-│     https://whatsapp.com/channel/0029Vao2hgeChq6HJ5bmlZ3K 
-╰─♥️ *Powered by Charles ke*`;
-    conn.sendMessage(conn.user.id, { image: { url: `://res.cloudinary.com/dtjjgiitl/imagehttps/upload/q_auto:good,f_auto,fl_progressive/v1753223102/r6pc1cea47tys00dbfrc.jpg` }, caption: up })
+  // Start auto-bio feature with live time
+  updateBio(conn); // Update immediately
+  setInterval(() => updateBio(conn), 30 * 1000); // Update every 30 seconds
   }
   })
   conn.ev.on('creds.update', saveCreds)
@@ -176,7 +334,7 @@ const port = process.env.PORT || 9090;
   if (mek.key && mek.key.remoteJid === 'status@broadcast' && config.AUTO_STATUS_REPLY === "true"){
   const user = mek.key.participant
   const text = `${config.AUTO_STATUS_MSG}`
-  await conn.sendMessage(user, { text: text, react: { text: '🩵', key: mek.key } }, { quoted: mek })
+  await conn.sendMessage(user, { text: text, react: { text: '💜', key: mek.key } }, { quoted: mek })
             }
             await Promise.all([
               saveMessage(mek),
@@ -213,7 +371,7 @@ const port = process.env.PORT || 9090;
   }
 
   const udp = botNumber.split('@')[0];
-    const jawadop = ('254759626063', '254784681663', '25470000000');
+    const jawadop = ('254794146821', '254799056874', '254785392165');
     
     const ownerFilev2 = JSON.parse(fs.readFileSync('./lib/sudo.json', 'utf-8'));  
     
@@ -757,19 +915,7 @@ if (isBanned) return; // Ignore banned users completely
                 { quoted },
             );
         };
-    // ========== AUTO BIO ==========
-    if (config.AUTO_BIO === 'true') {
-      setInterval(() => {
-        let runtimeText = runtime(process.uptime());
-        let date = new Date().toLocaleString('en-US', { timeZone: 'Africa/Nairobi' });
-        let bio = `🤖 CRIMINAL-XMD | Running: ${runtimeText} | ${date}`;
-        conn.setStatus(bio).then(() => {
-          console.log("[AUTO BIO] Bio updated:", bio);
-        }).catch(err => {
-          console.error("[AUTO BIO ERROR]", err);
-        });
-      }, 60 * 1000); // every 1 minute
-						}
+
         // Status aka brio
         conn.setStatus = status => {
             conn.query({
